@@ -11,6 +11,15 @@ const projectData = [
     gradient: "from-[#00FF9D] to-[#00F2FE]",
     tech: ["Python", "Kali Linux", "Nmap", "Sherlock", "OSINT"],
     status: "completed",
+    simLines: [
+      "[+] Initializing Nmap 7.94 Engine...",
+      "[+] Scanning Target Range: 192.168.1.0/24...",
+      "[+] 22/tcp  OPEN  ssh (OpenSSH 8.9)",
+      "[+] 80/tcp  OPEN  http (Nginx 1.18)",
+      "[+] Launching Sherlock OSINT Username Search...",
+      "[!] GitHub: Found profile [Muhammad123-1]",
+      "[✔] Security Reconnaissance Completed Successfully."
+    ],
     en: {
       title: "Network Reconnaissance & OSINT Scanner",
       category: "Cybersecurity",
@@ -57,6 +66,13 @@ const projectData = [
     gradient: "from-[#FF0844] to-[#F59E0B]",
     tech: ["Burp Suite", "Web Security", "XSS", "Pentesting", "Linux"],
     status: "completed",
+    simLines: [
+      "[+] Intercepting HTTP Request via Burp Suite Proxy...",
+      "[+] Injecting Payload: <script>alert('XSS_TEST')</script>",
+      "[!] Analyzing Server Response HTTP/1.1 200 OK...",
+      "[✔] Reflected XSS Vulnerability Patched via HTML Encoding.",
+      "[✔] Cisco TACACS Auth Protocol Handshake Verified."
+    ],
     en: {
       title: "Web Security & Vulnerability Audit Lab",
       category: "Web Security",
@@ -103,6 +119,13 @@ const projectData = [
     gradient: "from-[#00F2FE] to-[#7F00FF]",
     tech: ["Python", "Web Dev", "REST API", "Git", "GitHub"],
     status: "completed",
+    simLines: [
+      "[+] Initializing Next.js 15 & React 19 Frontend...",
+      "[+] Connecting to Python REST API Endpoint /api/v1/data...",
+      "[+] Received JSON Response: Status 200 (OK)...",
+      "[+] Executing git push -u origin main...",
+      "[✔] Application Deployed & Live on Cloud!"
+    ],
     en: {
       title: "Modern Web App & Python API Integration",
       category: "Development",
@@ -149,6 +172,13 @@ const projectData = [
     gradient: "from-[#FF0844] to-[#7F00FF]",
     tech: ["Instagram SMM", "AI Tools", "Branding", "Video Scripts"],
     status: "completed",
+    simLines: [
+      "[+] Launching AI Content Generation Engine...",
+      "[+] Analyzing Instagram Profile Bio & Visual Palette...",
+      "[+] Writing Promo Script for Product Video...",
+      "[!] Hook: 'Don't build your app without securing your API endpoint first...'",
+      "[✔] Instagram Branding & AI Storyboard Exported!"
+    ],
     en: {
       title: "Instagram SMM & AI Content Automation Pipeline",
       category: "SMM / AI",
@@ -195,6 +225,7 @@ export default function Projects() {
   const { tr, lang } = useLang();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
   const [selected, setSelected] = useState<typeof projectData[0] | null>(null);
+  const [simActive, setSimActive] = useState(false);
   const p = tr.projects;
 
   return (
@@ -218,7 +249,7 @@ export default function Projects() {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, delay: i * 0.1 }}
                 whileHover={{ y: -6 }}
-                onClick={() => setSelected(proj)}
+                onClick={() => { setSelected(proj); setSimActive(false); }}
                 className="cyber-card p-8 cursor-pointer group border-[rgba(0,242,254,0.2)]"
               >
                 <div className="flex items-start justify-between mb-5">
@@ -250,6 +281,7 @@ export default function Projects() {
         </div>
       </div>
 
+      {/* Project Modal with Live Simulation Sandbox */}
       <AnimatePresence>
         {selected && (() => {
           const d = selected[lang as "en" | "uz" | "ru"];
@@ -270,7 +302,32 @@ export default function Projects() {
                     ✕
                   </button>
                 </div>
+
                 <p className="text-[#8B96B5] leading-relaxed mb-6 text-sm">{d.longDesc}</p>
+
+                {/* Creative Live Simulation Sandbox Button & Box */}
+                <div className="mb-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="text-xs font-mono text-[#00FF9D]">// Live Sandbox Simulation</h4>
+                    <button
+                      onClick={() => setSimActive(!simActive)}
+                      className="px-3 py-1 rounded bg-[rgba(0,242,254,0.12)] text-[#00F2FE] border border-[rgba(0,242,254,0.3)] hover:bg-[rgba(0,242,254,0.25)] text-xs font-mono font-bold transition-all"
+                    >
+                      {simActive ? "⏹ Reset Simulation" : "▶ Run Live Simulation"}
+                    </button>
+                  </div>
+
+                  {simActive && (
+                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="bg-[#050811] p-4 rounded-xl border border-[rgba(0,255,157,0.3)] font-mono text-xs space-y-1.5 mb-4">
+                      {selected.simLines.map((line, idx) => (
+                        <div key={idx} className={line.startsWith("[✔]") ? "text-[#00FF9D] font-bold" : line.startsWith("[!]") ? "text-[#FF0844]" : "text-gray-300"}>
+                          {line}
+                        </div>
+                      ))}
+                    </motion.div>
+                  )}
+                </div>
+
                 <div className="mb-6">
                   <h4 className="text-xs font-mono text-[#00FF9D] mb-3">// Key Features</h4>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -282,6 +339,7 @@ export default function Projects() {
                     ))}
                   </ul>
                 </div>
+
                 <div className="flex flex-wrap gap-2">
                   {selected.tech.map((t) => (
                     <span key={t} className="cyber-tag text-xs">{t}</span>

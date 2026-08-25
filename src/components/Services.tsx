@@ -1,10 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useState } from "react";
 import { useLang } from "@/context/LanguageContext";
 
 const servicesData = [
   {
+    id: "security",
     icon: "🔐",
     gradient: "from-[#00FF9D] to-[#00F2FE]",
     features: ["Nmap Scanning", "Burp Suite", "XSS Audit", "Cisco TACACS"],
@@ -22,6 +24,7 @@ const servicesData = [
     },
   },
   {
+    id: "python",
     icon: "🐍",
     gradient: "from-[#00F2FE] to-[#3776AB]",
     features: ["Python Scripts", "Automation", "OSINT Tools", "CLI Utilities"],
@@ -39,6 +42,7 @@ const servicesData = [
     },
   },
   {
+    id: "web",
     icon: "🌐",
     gradient: "from-[#00F2FE] to-[#7F00FF]",
     features: ["HTML/CSS/JS", "Frontend UI", "REST APIs", "Clean Architecture"],
@@ -56,6 +60,7 @@ const servicesData = [
     },
   },
   {
+    id: "smm",
     icon: "📱",
     gradient: "from-[#FF0844] to-[#F59E0B]",
     features: ["Instagram SMM", "Bio & Branding", "Logo Design", "Video Scripts"],
@@ -73,6 +78,7 @@ const servicesData = [
     },
   },
   {
+    id: "ai",
     icon: "🤖",
     gradient: "from-[#7F00FF] to-[#00F2FE]",
     features: ["AI Tools", "Marketing Ideas", "Script Generation", "AI Workflows"],
@@ -90,6 +96,7 @@ const servicesData = [
     },
   },
   {
+    id: "git",
     icon: "🚀",
     gradient: "from-[#00FF9D] to-[#00F2FE]",
     features: ["Git Workflow", "GitHub Repos", "Version Control", "Project Setup"],
@@ -113,6 +120,24 @@ export default function Services() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
   const s = tr.services;
 
+  // Creative Feature: Interactive Project Scope Configurator
+  const [selectedServices, setSelectedServices] = useState<string[]>(["security", "web"]);
+
+  const toggleService = (id: string) => {
+    setSelectedServices(prev =>
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+
+  const handleSendScopeTelegram = () => {
+    const names = selectedServices
+      .map(id => servicesData.find(svc => svc.id === id)?.[lang as "en" | "uz" | "ru"].title)
+      .filter(Boolean)
+      .join(", ");
+    const text = encodeURIComponent(`Salom Ismoil! Men quyidagi xizmatlar bo'yicha loyiha buyurtma qilmoqchiman: ${names}`);
+    window.open(`https://t.me/ismoil_turgunboyev?text=${text}`, "_blank");
+  };
+
   return (
     <section id="services" className="section-padding relative overflow-hidden" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
@@ -124,13 +149,32 @@ export default function Services() {
           <p className="text-[#8B96B5] max-w-2xl mx-auto text-lg">{s.sub}</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Standard Services Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
           {servicesData.map((svc, i) => {
             const d = svc[lang as "en" | "uz" | "ru"];
+            const isSelected = selectedServices.includes(svc.id);
             return (
-              <motion.div key={i} initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: i * 0.08 }} whileHover={{ y: -6 }} className="cyber-card p-7 group cursor-default">
-                <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${svc.gradient} flex items-center justify-center text-xl text-[#050811] shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                  {svc.icon}
+              <motion.div
+                key={svc.id}
+                initial={{ opacity: 0, y: 40 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: i * 0.08 }}
+                whileHover={{ y: -6 }}
+                onClick={() => toggleService(svc.id)}
+                className={`cyber-card p-7 group cursor-pointer transition-all duration-300 ${
+                  isSelected ? "border-[#00FF9D] bg-[rgba(0,255,157,0.06)] shadow-[0_0_25px_rgba(0,255,157,0.15)]" : "border-[rgba(0,242,254,0.15)]"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-5">
+                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${svc.gradient} flex items-center justify-center text-xl text-[#050811] shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    {svc.icon}
+                  </div>
+                  <span className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold border font-mono transition-all ${
+                    isSelected ? "bg-[#00FF9D] text-[#050811] border-[#00FF9D]" : "border-[rgba(0,242,254,0.3)] text-gray-500"
+                  }`}>
+                    {isSelected ? "✓" : "+"}
+                  </span>
                 </div>
                 <h3 className="text-lg font-bold text-[#F0F6FF] mb-3 group-hover:text-[#00FF9D] transition-colors">{d.title}</h3>
                 <p className="text-[#8B96B5] text-xs sm:text-sm leading-relaxed mb-5">{d.desc}</p>
@@ -146,13 +190,35 @@ export default function Services() {
           })}
         </div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.7 }} className="text-center mt-14">
-          <p className="text-[#8B96B5] mb-4">
-            {s.ctaText} <span className="text-[#F0F6FF] font-medium">{s.ctaHighlight}</span>
-          </p>
-          <motion.button onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} whileHover={{ scale: 1.05, boxShadow: "0 0 35px rgba(0,242,254,0.4)" }} whileTap={{ scale: 0.97 }} className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#00F2FE] via-[#4FACFE] to-[#00FF9D] text-[#050811] font-extrabold text-sm shadow-xl">
-            {s.ctaBtn}
-          </motion.button>
+        {/* Creative Feature: Interactive Scope Builder Output Bar */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.6 }} className="cyber-card p-6 border-[rgba(0,252,254,0.3)] bg-[#080D1A]/95">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <div className="flex items-center gap-2 mb-2 font-mono text-xs text-[#00F2FE]">
+                <span>⚡ INTERACTIVE PROJECT CONFIGURATOR</span>
+                <span className="text-[#00FF9D]">({selectedServices.length} Selected)</span>
+              </div>
+              <p className="text-xs text-[#8B96B5]">
+                {selectedServices.length > 0
+                  ? `Tanlangan xizmatlar: ${selectedServices.map(id => servicesData.find(s => s.id === id)?.[lang as "en" | "uz" | "ru"].title).join(" + ")}`
+                  : "Yuqoridagi kartalarga bosib xizmatlarni tanlang..."}
+              </p>
+            </div>
+
+            <motion.button
+              onClick={handleSendScopeTelegram}
+              disabled={selectedServices.length === 0}
+              whileHover={{ scale: 1.05, boxShadow: "0 0 35px rgba(0,255,157,0.4)" }}
+              whileTap={{ scale: 0.97 }}
+              className={`px-6 py-3 rounded-xl font-bold text-xs font-mono tracking-wide transition-all ${
+                selectedServices.length > 0
+                  ? "bg-gradient-to-r from-[#00FF9D] to-[#00F2FE] text-[#050811] shadow-lg"
+                  : "bg-gray-800 text-gray-500 cursor-not-allowed"
+              }`}
+            >
+              🚀 Telegram Orqali Buyurtma Berish ({selectedServices.length})
+            </motion.button>
+          </div>
         </motion.div>
       </div>
     </section>

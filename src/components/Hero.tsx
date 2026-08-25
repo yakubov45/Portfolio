@@ -10,7 +10,16 @@ export default function Hero() {
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const typingRef = useRef<ReturnType<typeof setTimeout>>(null);
-  const [activeDomain, setActiveDomain] = useState<number>(0);
+
+  // Interactive CLI State
+  const [cmdInput, setCmdInput] = useState("");
+  const [terminalLogs, setTerminalLogs] = useState<Array<{ cmd: string; output: string | React.ReactNode }>>([
+    {
+      cmd: "system --init",
+      output: "WELCOME TO ISMOIL TURGUNBOYEV CYBER HUB v2.5 :: TYPE 'help' OR CLICK CHIPS BELOW",
+    },
+  ]);
+  const terminalEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const currentRole = roles[roleIndex % roles.length];
@@ -26,78 +35,92 @@ export default function Hero() {
     return () => { if (typingRef.current) clearTimeout(typingRef.current); };
   }, [displayText, isDeleting, roleIndex, roles]);
 
-  const domainTabs = [
-    {
-      id: 0,
-      title: "01. Cybersecurity & Pentesting",
-      badge: "Kali Linux / Burp / Nmap",
-      icon: "💻",
-      color: "#00FF9D",
-      border: "rgba(0,255,157,0.4)",
-      bg: "rgba(0,255,157,0.06)",
-      codeSnippet: [
-        "// Kali Linux & Network Reconnaissance",
-        "nmap -sV -sC -p- 192.168.1.1/24",
-        "burpsuite --intercept-proxy HTTP/2",
-        "sherlock --username target_id --osint",
-        "Status: System Hardened ✓ [Cisco TACACS]",
-      ],
-    },
-    {
-      id: 1,
-      title: "02. Python & Web Development",
-      badge: "Python / Web / APIs / Git",
-      icon: "🐍",
-      color: "#00F2FE",
-      border: "rgba(0,242,254,0.4)",
-      bg: "rgba(0,242,254,0.06)",
-      codeSnippet: [
-        "# Python Scripting & REST API Engine",
-        "import requests, json, git",
-        "def build_web_app(framework='Next.js'):",
-        "    return render_ui() + sync_api_backend()",
-        "Status: Production Build Ready ✓",
-      ],
-    },
-    {
-      id: 2,
-      title: "03. Instagram SMM & Digital",
-      badge: "Branding / Ads / Video Scripts",
-      icon: "📱",
-      color: "#FF0844",
-      border: "rgba(255,8,68,0.4)",
-      bg: "rgba(255,8,68,0.06)",
-      codeSnippet: [
-        "// Instagram SMM & Content Engine",
-        "const profileStrategy = { bio: 'Optimized', logo: 'Vector' };",
-        "const videoScript = generateAdCopy('Product Showcase');",
-        "publishContent({ channel: 'Instagram Reels' });",
-        "Status: Campaign Live 🔥",
-      ],
-    },
-    {
-      id: 3,
-      title: "04. AI Content Workflows",
-      badge: "AI Automation / Prompting",
-      icon: "🤖",
-      color: "#7F00FF",
-      border: "rgba(127,0,255,0.4)",
-      bg: "rgba(127,0,255,0.06)",
-      codeSnippet: [
-        "/* AI Workflow & Prompting Hub */",
-        "run_ai_pipeline(mode='Marketing Scripting')",
-        "generate_creative_ideas(target='Viral Engagement')",
-        "export_video_storyboard()",
-        "Status: AI Automation Active ⚡",
-      ],
-    },
-  ];
+  useEffect(() => {
+    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [terminalLogs]);
+
+  const handleRunCommand = (commandStr: string) => {
+    const cmd = commandStr.trim().toLowerCase();
+    let out: React.ReactNode = "";
+
+    if (cmd === "help") {
+      out = (
+        <div className="text-[#00F2FE] space-y-1">
+          <div>AVAILABLE COMMANDS:</div>
+          <div>- <span className="text-[#00FF9D]">scan</span> : Run Nmap & Security Recon simulation</div>
+          <div>- <span className="text-[#00F2FE]">python</span> : Execute Python automation script</div>
+          <div>- <span className="text-[#FF0844]">smm</span> : Generate Instagram SMM & Ad Script strategy</div>
+          <div>- <span className="text-[#7F00FF]">ai</span> : Run AI workflow & prompt generation</div>
+          <div>- <span className="text-[#F59E0B]">contact</span> : Jump to contact form</div>
+          <div>- <span className="text-gray-400">clear</span> : Clear terminal output</div>
+        </div>
+      );
+    } else if (cmd.startsWith("scan")) {
+      out = (
+        <div className="text-[#00FF9D] space-y-1 font-mono text-[11px]">
+          <div>[+] Initiating Nmap 7.94 scan on 192.168.1.100...</div>
+          <div>PORT     STATE SERVICE       VERSION</div>
+          <div>22/tcp   open  ssh           OpenSSH 8.9p1</div>
+          <div>80/tcp   open  http          Nginx 1.18.0</div>
+          <div>443/tcp  open  ssl/https     OpenSSL 3.0.2</div>
+          <div>[+] Sherlock OSINT: Searching usernames across 300+ sites... DONE</div>
+          <div className="text-[#00F2FE] font-bold">[✔] Security Audit Complete: No Critical XSS Vulnerabilities Detected.</div>
+        </div>
+      );
+    } else if (cmd.startsWith("python")) {
+      out = (
+        <div className="text-[#00F2FE] space-y-1 font-mono text-[11px]">
+          <div>$ python3 automation_suite.py --task sync_api</div>
+          <div>[INFO] Loading REST API endpoints...</div>
+          <div>[SUCCESS] Parsed 1,450 records in 0.042s</div>
+          <div>[GIT] Pushed latest commit to origin/main (SHA: 9c7ad64)</div>
+          <div className="text-[#00FF9D] font-bold">[✔] Automation Process Finished Successfully.</div>
+        </div>
+      );
+    } else if (cmd.startsWith("smm")) {
+      out = (
+        <div className="text-[#FF0844] space-y-1 font-mono text-[11px]">
+          <div>📱 INSTAGRAM SMM & BRANDING ENGINE</div>
+          <div>- Bio Concept: "Multidisciplinary Specialist | Tech & Security"</div>
+          <div>- Content Plan: 3x Reels (Scripted via AI), 5x Stories (Visual Portfolio)</div>
+          <div>- Product Ad Script: "Transforming raw ideas into secure digital systems."</div>
+          <div className="text-[#00FF9D] font-bold">[✔] Brand Identity Blueprint Prepared!</div>
+        </div>
+      );
+    } else if (cmd.startsWith("ai")) {
+      out = (
+        <div className="text-[#7F00FF] space-y-1 font-mono text-[11px]">
+          <div>🤖 AI WORKFLOW PIPELINE ACTIVE</div>
+          <div>Prompt &gt; "Generate high-converting promo video script for IT agency"</div>
+          <div>Result &gt; Hook: "90% of security breaches happen due to misconfigured APIs..."</div>
+          <div className="text-[#00FF9D] font-bold">[✔] AI Prompt Generated & Storyboard Exported!</div>
+        </div>
+      );
+    } else if (cmd === "contact") {
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+      out = "Redirecting to contact section...";
+    } else if (cmd === "clear") {
+      setTerminalLogs([]);
+      setCmdInput("");
+      return;
+    } else {
+      out = `Command '${commandStr}' not recognized. Type 'help' to see available commands.`;
+    }
+
+    setTerminalLogs(prev => [...prev, { cmd: commandStr, output: out }]);
+    setCmdInput("");
+  };
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (cmdInput.trim()) handleRunCommand(cmdInput);
+  };
 
   const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden cyber-grid pt-24 pb-16">
-      {/* Glow Rings */}
+      {/* Background Glows */}
       <div className="absolute w-[700px] h-[700px] bg-[rgba(0,242,254,0.08)] rounded-full blur-[140px] pointer-events-none" style={{ top: "-10%", left: "50%", transform: "translateX(-50%)" }} />
       <div className="absolute w-[500px] h-[500px] bg-[rgba(0,255,157,0.07)] rounded-full blur-[120px] pointer-events-none" style={{ bottom: "0%", right: "-5%" }} />
 
@@ -125,12 +148,12 @@ export default function Hero() {
         </div>
 
         {/* Hero Description */}
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-[#8B96B5] text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-10">
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-[#8B96B5] text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-8">
           {tr.hero.desc}
         </motion.p>
 
         {/* Buttons */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="flex flex-wrap gap-4 justify-center mb-14">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="flex flex-wrap gap-4 justify-center mb-10">
           <motion.button onClick={() => go("projects")} whileHover={{ scale: 1.05, boxShadow: "0 0 35px rgba(0,242,254,0.4)" }} whileTap={{ scale: 0.97 }} className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#00F2FE] via-[#4FACFE] to-[#00FF9D] text-[#050811] font-extrabold text-sm shadow-xl tracking-wide">
             {tr.hero.viewProjects}
           </motion.button>
@@ -139,51 +162,69 @@ export default function Hero() {
           </motion.button>
         </motion.div>
 
-        {/* Interactive Matrix Dashboard Deck */}
-        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="max-w-5xl mx-auto">
-          {/* Domain Selector Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-            {domainTabs.map((tab) => {
-              const isActive = activeDomain === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveDomain(tab.id)}
-                  className={`p-4 rounded-2xl border text-left transition-all duration-300 ${
-                    isActive
-                      ? "bg-[rgba(10,16,31,0.9)] border-[#00FF9D] shadow-[0_0_25px_rgba(0,255,157,0.2)]"
-                      : "bg-[rgba(10,16,31,0.5)] border-[rgba(0,242,254,0.15)] hover:border-[rgba(0,242,254,0.4)]"
-                  }`}
-                >
-                  <div className="text-xl mb-2">{tab.icon}</div>
-                  <div className="text-xs font-bold text-[#F0F6FF] truncate">{tab.title}</div>
-                  <div className="text-[10px] font-mono text-[#8B96B5] mt-1">{tab.badge}</div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Active HUD Code & Specs Monitor */}
-          <div className="cyber-card p-6 text-left border-[rgba(0,242,254,0.3)]">
-            <div className="flex items-center justify-between border-b border-[rgba(0,242,254,0.15)] pb-3 mb-4">
+        {/* Creative Feature: Live Interactive Cyber Terminal CLI */}
+        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="max-w-4xl mx-auto text-left">
+          <div className="cyber-card border-[rgba(0,242,254,0.3)] p-0 overflow-hidden shadow-2xl">
+            {/* Terminal Header */}
+            <div className="bg-[#080D1A] px-4 py-3 border-b border-[rgba(0,242,254,0.2)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-cyan-400 inline-block animate-pulse" />
-                <span className="text-xs font-mono text-[#00F2FE] font-bold">CYBER HUD MONITOR :: DOMAIN_0{activeDomain + 1}</span>
+                <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-yellow-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-green-500/80 inline-block" />
+                <span className="text-xs font-mono text-[#00F2FE] ml-2 font-bold">ISMOIL_CLI :: INTERACTIVE CYBER PLATFORM</span>
               </div>
-              <span className="text-[11px] font-mono text-[#00FF9D] bg-[rgba(0,255,157,0.1)] px-2.5 py-0.5 rounded-md border border-[rgba(0,255,157,0.3)]">
-                ACTIVE
+              <span className="text-[10px] font-mono text-[#00FF9D] bg-[rgba(0,255,157,0.12)] px-2.5 py-0.5 rounded border border-[rgba(0,255,157,0.3)]">
+                LIVE INTERACTIVE
               </span>
             </div>
 
-            <AnimatePresence mode="wait">
-              <motion.div key={activeDomain} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="font-mono text-xs leading-relaxed">
-                {domainTabs[activeDomain].codeSnippet.map((line, idx) => (
-                  <div key={idx} className={`mb-1.5 ${line.startsWith("//") || line.startsWith("#") || line.startsWith("/*") ? "text-[#4B5678]" : line.startsWith("Status") ? "text-[#00FF9D] font-bold" : "text-[#F0F6FF]"}`}>
-                    {line}
+            {/* Quick Command Chips */}
+            <div className="bg-[#0A101F] px-4 py-2 border-b border-[rgba(0,242,254,0.1)] flex flex-wrap items-center gap-2 text-xs font-mono">
+              <span className="text-gray-400">Quick Commands:</span>
+              <button onClick={() => handleRunCommand("scan")} className="px-2.5 py-1 rounded bg-[rgba(0,255,157,0.1)] text-[#00FF9D] border border-[rgba(0,255,157,0.3)] hover:bg-[rgba(0,255,157,0.2)] transition-all">
+                ⚡ scan
+              </button>
+              <button onClick={() => handleRunCommand("python")} className="px-2.5 py-1 rounded bg-[rgba(0,242,254,0.1)] text-[#00F2FE] border border-[rgba(0,242,254,0.3)] hover:bg-[rgba(0,242,254,0.2)] transition-all">
+                🐍 python
+              </button>
+              <button onClick={() => handleRunCommand("smm")} className="px-2.5 py-1 rounded bg-[rgba(255,8,68,0.1)] text-[#FF0844] border border-[rgba(255,8,68,0.3)] hover:bg-[rgba(255,8,68,0.2)] transition-all">
+                📱 smm
+              </button>
+              <button onClick={() => handleRunCommand("ai")} className="px-2.5 py-1 rounded bg-[rgba(127,0,255,0.1)] text-[#7F00FF] border border-[rgba(127,0,255,0.3)] hover:bg-[rgba(127,0,255,0.2)] transition-all">
+                🤖 ai
+              </button>
+              <button onClick={() => handleRunCommand("help")} className="px-2.5 py-1 rounded bg-[rgba(245,158,11,0.1)] text-[#F59E0B] border border-[rgba(245,158,11,0.3)] hover:bg-[rgba(245,158,11,0.2)] transition-all">
+                ❓ help
+              </button>
+            </div>
+
+            {/* Terminal Body Log */}
+            <div className="p-5 font-mono text-xs max-h-[240px] overflow-y-auto space-y-3 bg-[#050811]/90">
+              {terminalLogs.map((log, idx) => (
+                <div key={idx} className="space-y-1">
+                  <div className="text-gray-400">
+                    <span className="text-[#00FF9D]">ismoil@cyber-deck</span>:<span className="text-[#00F2FE]">~</span>$ {log.cmd}
                   </div>
-                ))}
-              </motion.div>
-            </AnimatePresence>
+                  <div className="pl-3 text-gray-200">{log.output}</div>
+                </div>
+              ))}
+              <div ref={terminalEndRef} />
+            </div>
+
+            {/* Terminal Input Form */}
+            <form onSubmit={onSubmit} className="bg-[#0A101F] px-4 py-3 border-t border-[rgba(0,242,254,0.15)] flex items-center gap-2">
+              <span className="text-[#00FF9D] font-mono text-xs font-bold">&gt;</span>
+              <input
+                type="text"
+                value={cmdInput}
+                onChange={(e) => setCmdInput(e.target.value)}
+                placeholder="Type 'scan', 'python', 'smm', 'ai' or 'help'..."
+                className="w-full bg-transparent text-xs font-mono text-[#F0F6FF] placeholder-[#4B5678] focus:outline-none"
+              />
+              <button type="submit" className="px-3 py-1 bg-[#00F2FE] text-[#050811] text-xs font-mono font-bold rounded hover:bg-[#00FF9D] transition-colors">
+                RUN
+              </button>
+            </form>
           </div>
         </motion.div>
 

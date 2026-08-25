@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useState, useEffect } from "react";
 import { useLang } from "@/context/LanguageContext";
 
 const fadeUp = {
@@ -12,6 +13,26 @@ export default function About() {
   const { tr } = useLang();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const a = tr.about;
+
+  // Realtime Tashkent Clock State
+  const [timeStr, setTimeStr] = useState<string>("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        timeZone: "Asia/Tashkent",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      };
+      setTimeStr(new Intl.DateTimeFormat("en-US", options).format(now));
+    };
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const domainPillars = [
     {
@@ -50,10 +71,8 @@ export default function About() {
 
   return (
     <section id="about" className="section-padding relative overflow-hidden" ref={ref}>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[rgba(0,242,254,0.04)] rounded-full blur-[140px] pointer-events-none" />
-
       <div className="max-w-7xl mx-auto px-6">
-        <motion.div custom={0} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="text-center mb-16">
+        <motion.div custom={0} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="text-center mb-14">
           <span className="cyber-tag mb-4 inline-block">{a.tag}</span>
           <h2 className="text-4xl sm:text-5xl font-black text-[#F0F6FF] mb-4">
             {a.title} <span className="gradient-text-electric">{a.titleGrad}</span>
@@ -61,8 +80,22 @@ export default function About() {
           <p className="text-[#8B96B5] max-w-2xl mx-auto text-lg">{a.sub}</p>
         </motion.div>
 
+        {/* Live System Time & Operational Status Bar */}
+        <motion.div custom={1} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-4 mb-8 border-[rgba(0,255,157,0.3)] bg-[#080D1A]/90 flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
+          <div className="flex items-center gap-3">
+            <span className="w-3 h-3 rounded-full bg-[#00FF9D] shadow-[0_0_10px_rgba(0,255,157,0.8)] animate-pulse" />
+            <span className="text-[#F0F6FF] font-bold">SYSTEM STATUS: OPERATIONAL</span>
+            <span className="text-[#8B96B5]">|</span>
+            <span className="text-[#00F2FE]">CISCO TACACS & KALI LABS: ONLINE</span>
+          </div>
+
+          <div className="flex items-center gap-4 text-[#8B96B5]">
+            <span>📍 TASHKENT (UTC+5): <strong className="text-[#00FF9D]">{timeStr || "12:00:00 PM"}</strong></span>
+          </div>
+        </motion.div>
+
         {/* Bio Command Header Card */}
-        <motion.div custom={1} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-8 mb-8 border-[rgba(0,242,254,0.3)]">
+        <motion.div custom={2} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-8 mb-8 border-[rgba(0,242,254,0.3)]">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-6">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#00F2FE] via-[#4FACFE] to-[#00FF9D] flex items-center justify-center text-[#050811] font-black text-2xl shadow-[0_0_30px_rgba(0,242,254,0.4)] flex-shrink-0">
@@ -89,7 +122,7 @@ export default function About() {
           {domainPillars.map((pillar, idx) => (
             <motion.div
               key={pillar.title}
-              custom={idx + 2}
+              custom={idx + 3}
               variants={fadeUp}
               initial="hidden"
               animate={inView ? "visible" : "hidden"}
@@ -113,7 +146,7 @@ export default function About() {
         {/* Details Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {/* Languages */}
-          <motion.div custom={6} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-6">
+          <motion.div custom={7} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-6">
             <h3 className="text-sm font-bold text-[#F0F6FF] mb-4 flex items-center gap-2">
               <span className="text-lg">🌐</span> {a.langTitle}
             </h3>
@@ -131,7 +164,7 @@ export default function About() {
           </motion.div>
 
           {/* Goals */}
-          <motion.div custom={7} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-6">
+          <motion.div custom={8} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-6">
             <h3 className="text-sm font-bold text-[#F0F6FF] mb-4 flex items-center gap-2">
               <span className="text-lg">🎯</span> {a.goalTitle}
             </h3>
@@ -146,7 +179,7 @@ export default function About() {
           </motion.div>
 
           {/* Work Style */}
-          <motion.div custom={8} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-6">
+          <motion.div custom={9} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-6">
             <h3 className="text-sm font-bold text-[#F0F6FF] mb-4 flex items-center gap-2">
               <span className="text-lg">⚙️</span> {a.styleTitle}
             </h3>
@@ -160,7 +193,7 @@ export default function About() {
           </motion.div>
 
           {/* Focus Areas */}
-          <motion.div custom={9} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-6">
+          <motion.div custom={10} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-6">
             <h3 className="text-sm font-bold text-[#F0F6FF] mb-4 flex items-center gap-2">
               <span className="text-lg">💡</span> {a.interestTitle}
             </h3>
