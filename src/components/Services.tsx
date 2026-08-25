@@ -6,8 +6,7 @@ import { useLang } from "@/context/LanguageContext";
 const servicesData = [
   {
     icon: "🔐",
-    gradient: "from-[#10B981] to-[#22D3EE]",
-    glow: "rgba(16, 185, 129, 0.2)",
+    gradient: "from-[#00FF9D] to-[#00F2FE]",
     features: ["Nmap Scanning", "Burp Suite", "XSS Audit", "Cisco TACACS"],
     en: {
       title: "Security Recon & Vulnerability Audit",
@@ -24,8 +23,7 @@ const servicesData = [
   },
   {
     icon: "🐍",
-    gradient: "from-[#3776AB] to-[#4F8EF7]",
-    glow: "rgba(55, 118, 171, 0.2)",
+    gradient: "from-[#00F2FE] to-[#3776AB]",
     features: ["Python Scripts", "Automation", "OSINT Tools", "CLI Utilities"],
     en: {
       title: "Python Scripting & Task Automation",
@@ -33,7 +31,6 @@ const servicesData = [
     },
     uz: {
       title: "Python Skriptlar va Avtomatizatsiya",
-      org: "Python Scripting",
       desc: "Vazifalarni avtomatlashtirish, OSINT ma'lumotlarini izlash va tahlil qilish hamda maxsus Python skriptlarini yozish.",
     },
     ru: {
@@ -43,8 +40,7 @@ const servicesData = [
   },
   {
     icon: "🌐",
-    gradient: "from-[#4F8EF7] to-[#8B5CF6]",
-    glow: "rgba(79, 142, 247, 0.2)",
+    gradient: "from-[#00F2FE] to-[#7F00FF]",
     features: ["HTML/CSS/JS", "Frontend UI", "REST APIs", "Clean Architecture"],
     en: {
       title: "Web Development & API Integration",
@@ -61,8 +57,7 @@ const servicesData = [
   },
   {
     icon: "📱",
-    gradient: "from-[#EC4899] to-[#F59E0B]",
-    glow: "rgba(236, 72, 153, 0.2)",
+    gradient: "from-[#FF0844] to-[#F59E0B]",
     features: ["Instagram SMM", "Bio & Branding", "Logo Design", "Video Scripts"],
     en: {
       title: "Instagram SMM & Digital Branding",
@@ -79,8 +74,7 @@ const servicesData = [
   },
   {
     icon: "🤖",
-    gradient: "from-[#8B5CF6] to-[#22D3EE]",
-    glow: "rgba(139, 92, 246, 0.2)",
+    gradient: "from-[#7F00FF] to-[#00F2FE]",
     features: ["AI Tools", "Marketing Ideas", "Script Generation", "AI Workflows"],
     en: {
       title: "AI Workflows & Marketing Automation",
@@ -97,8 +91,7 @@ const servicesData = [
   },
   {
     icon: "🚀",
-    gradient: "from-[#10B981] to-[#4F8EF7]",
-    glow: "rgba(16, 185, 129, 0.2)",
+    gradient: "from-[#00FF9D] to-[#00F2FE]",
     features: ["Git Workflow", "GitHub Repos", "Version Control", "Project Setup"],
     en: {
       title: "Git Repository & Code Management",
@@ -122,19 +115,11 @@ export default function Services() {
 
   return (
     <section id="services" className="section-padding relative overflow-hidden" ref={ref}>
-      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[rgba(16,185,129,0.04)] rounded-full blur-[120px] pointer-events-none" />
       <div className="max-w-7xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-14"
-        >
-          <span className="tag mb-4 inline-block border-[rgba(16,185,129,0.3)] bg-[rgba(16,185,129,0.08)] text-[#10B981]">
-            {s.tag}
-          </span>
-          <h2 className="text-4xl sm:text-5xl font-black text-[#F0F4FF] mb-4">
-            {s.title} <span className="gradient-text">{s.titleGrad}</span>
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }} className="text-center mb-14">
+          <span className="cyber-tag mb-4 inline-block">{s.tag}</span>
+          <h2 className="text-4xl sm:text-5xl font-black text-[#F0F6FF] mb-4">
+            {s.title} <span className="gradient-text-electric">{s.titleGrad}</span>
           </h2>
           <p className="text-[#8B96B5] max-w-2xl mx-auto text-lg">{s.sub}</p>
         </motion.div>
@@ -143,30 +128,15 @@ export default function Services() {
           {servicesData.map((svc, i) => {
             const d = svc[lang as "en" | "uz" | "ru"];
             return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 40 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: i * 0.08 }}
-                whileHover={{ y: -6 }}
-                className="bento-card p-7 group cursor-default"
-              >
-                <div
-                  className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${svc.gradient} flex items-center justify-center text-xl shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}
-                  style={{ boxShadow: `0 8px 30px ${svc.glow}` }}
-                >
+              <motion.div key={i} initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: i * 0.08 }} whileHover={{ y: -6 }} className="cyber-card p-7 group cursor-default">
+                <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${svc.gradient} flex items-center justify-center text-xl text-[#050811] shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}>
                   {svc.icon}
                 </div>
-                <h3 className="text-lg font-bold text-[#F0F4FF] mb-3 group-hover:text-[#10B981] transition-colors">
-                  {d.title}
-                </h3>
-                <p className="text-[#8B96B5] text-sm leading-relaxed mb-5">{d.desc}</p>
-                <div className="pt-5 border-t border-[rgba(79,142,247,0.08)] flex flex-wrap gap-2">
+                <h3 className="text-lg font-bold text-[#F0F6FF] mb-3 group-hover:text-[#00FF9D] transition-colors">{d.title}</h3>
+                <p className="text-[#8B96B5] text-xs sm:text-sm leading-relaxed mb-5">{d.desc}</p>
+                <div className="pt-5 border-t border-[rgba(0,242,254,0.1)] flex flex-wrap gap-1.5">
                   {svc.features.map((f) => (
-                    <span
-                      key={f}
-                      className="text-xs px-2.5 py-1 rounded-lg font-mono text-[#8B96B5] bg-[rgba(79,142,247,0.05)] border border-[rgba(79,142,247,0.12)] group-hover:border-[rgba(16,185,129,0.3)] transition-all"
-                    >
+                    <span key={f} className="text-[11px] px-2 py-0.5 rounded-md font-mono text-[#8B96B5] bg-[rgba(10,16,31,0.6)] border border-[rgba(0,242,254,0.15)] group-hover:border-[#00FF9D] transition-all">
                       {f}
                     </span>
                   ))}
@@ -176,21 +146,11 @@ export default function Services() {
           })}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.7 }}
-          className="text-center mt-14"
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.7 }} className="text-center mt-14">
           <p className="text-[#8B96B5] mb-4">
-            {s.ctaText} <span className="text-[#F0F4FF] font-medium">{s.ctaHighlight}</span>
+            {s.ctaText} <span className="text-[#F0F6FF] font-medium">{s.ctaHighlight}</span>
           </p>
-          <motion.button
-            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(16,185,129,0.4)" }}
-            whileTap={{ scale: 0.97 }}
-            className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#10B981] via-[#4F8EF7] to-[#8B5CF6] text-white font-semibold shadow-lg"
-          >
+          <motion.button onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} whileHover={{ scale: 1.05, boxShadow: "0 0 35px rgba(0,242,254,0.4)" }} whileTap={{ scale: 0.97 }} className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#00F2FE] via-[#4FACFE] to-[#00FF9D] text-[#050811] font-extrabold text-sm shadow-xl">
             {s.ctaBtn}
           </motion.button>
         </motion.div>

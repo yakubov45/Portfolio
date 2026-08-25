@@ -7,7 +7,7 @@ const timelineData = [
   {
     year: "2024 – Present",
     icon: "🔐",
-    color: "#10B981",
+    color: "#00FF9D",
     tags: ["Kali Linux", "Burp Suite", "Nmap", "Web Security", "Cisco TACACS"],
     en: {
       title: "Cybersecurity & Pentesting Focus",
@@ -28,7 +28,7 @@ const timelineData = [
   {
     year: "2023 – 2024",
     icon: "💻",
-    color: "#4F8EF7",
+    color: "#00F2FE",
     tags: ["Python", "Web Dev", "REST API", "Git", "GitHub"],
     en: {
       title: "Python & Web Development",
@@ -49,7 +49,7 @@ const timelineData = [
   {
     year: "2023 – Present",
     icon: "📱",
-    color: "#EC4899",
+    color: "#FF0844",
     tags: ["Instagram SMM", "Branding", "Content Strategy", "Video Scripts"],
     en: {
       title: "Digital SMM & Content Strategy",
@@ -70,7 +70,7 @@ const timelineData = [
   {
     year: "2024 – Present",
     icon: "🤖",
-    color: "#8B5CF6",
+    color: "#7F00FF",
     tags: ["AI Marketing", "Prompting", "Script Gen", "AI Workflows"],
     en: {
       title: "AI Tools & Marketing Workflows",
@@ -97,25 +97,17 @@ export default function Experience() {
 
   return (
     <section id="experience" className="section-padding relative overflow-hidden" ref={ref}>
-      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[rgba(16,185,129,0.04)] rounded-full blur-[120px] pointer-events-none" />
       <div className="max-w-7xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-14"
-        >
-          <span className="tag mb-4 inline-block border-[rgba(16,185,129,0.3)] bg-[rgba(16,185,129,0.08)] text-[#10B981]">
-            {e.tag}
-          </span>
-          <h2 className="text-4xl sm:text-5xl font-black text-[#F0F4FF] mb-4">
-            {e.title} <span className="gradient-text">{e.titleGrad}</span>
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }} className="text-center mb-14">
+          <span className="cyber-tag mb-4 inline-block">{e.tag}</span>
+          <h2 className="text-4xl sm:text-5xl font-black text-[#F0F6FF] mb-4">
+            {e.title} <span className="gradient-text-electric">{e.titleGrad}</span>
           </h2>
           <p className="text-[#8B96B5] max-w-2xl mx-auto text-lg">{e.sub}</p>
         </motion.div>
 
         <div className="relative max-w-4xl mx-auto">
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[rgba(16,185,129,0.5)] via-[rgba(79,142,247,0.3)] to-transparent md:-translate-x-1/2" />
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[#00F2FE] via-[#00FF9D] to-transparent md:-translate-x-1/2" />
           <div className="flex flex-col gap-10">
             {timelineData.map((item, i) => {
               const d = item[lang as "en" | "uz" | "ru"];
@@ -126,33 +118,21 @@ export default function Experience() {
                   initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.7, delay: i * 0.15 }}
-                  className={`relative flex items-start gap-6 md:gap-0 ${
-                    isLeft ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
+                  className={`relative flex items-start gap-6 md:gap-0 ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}
                 >
                   <div className={`flex-1 pl-10 md:pl-0 ${isLeft ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
-                    <div className="bento-card p-6 inline-block w-full text-left">
-                      <span
-                        className="inline-block text-xs font-mono px-3 py-1 rounded-full mb-3"
-                        style={{
-                          background: `${item.color}18`,
-                          color: item.color,
-                          border: `1px solid ${item.color}30`,
-                        }}
-                      >
+                    <div className="cyber-card p-6 inline-block w-full text-left">
+                      <span className="cyber-tag text-xs mb-3 inline-block" style={{ color: item.color, borderColor: `${item.color}50` }}>
                         {item.year}
                       </span>
-                      <h3 className="text-lg font-bold text-[#F0F4FF] mb-1">{d.title}</h3>
-                      <p className="text-sm font-medium mb-3" style={{ color: item.color }}>
+                      <h3 className="text-lg font-bold text-[#F0F6FF] mb-1">{d.title}</h3>
+                      <p className="text-xs font-mono mb-3" style={{ color: item.color }}>
                         {d.org}
                       </p>
-                      <p className="text-sm text-[#8B96B5] leading-relaxed mb-4">{d.desc}</p>
-                      <div className={`flex flex-wrap gap-2 ${isLeft ? "md:justify-end" : ""}`}>
+                      <p className="text-xs text-[#8B96B5] leading-relaxed mb-4">{d.desc}</p>
+                      <div className={`flex flex-wrap gap-1.5 ${isLeft ? "md:justify-end" : ""}`}>
                         {item.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-xs px-2.5 py-1 rounded-lg font-mono text-[#8B96B5] bg-[rgba(79,142,247,0.05)] border border-[rgba(79,142,247,0.12)]"
-                          >
+                          <span key={tag} className="text-[11px] px-2 py-0.5 rounded-md font-mono text-[#8B96B5] bg-[rgba(10,16,31,0.6)] border border-[rgba(0,242,254,0.15)]">
                             {tag}
                           </span>
                         ))}
@@ -160,14 +140,7 @@ export default function Experience() {
                     </div>
                   </div>
                   <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 top-6 z-10">
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center text-base shadow-lg"
-                      style={{
-                        background: `${item.color}20`,
-                        border: `2px solid ${item.color}`,
-                        boxShadow: `0 0 16px ${item.color}50`,
-                      }}
-                    >
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-base shadow-lg bg-[#050811]" style={{ border: `2px solid ${item.color}`, boxShadow: `0 0 20px ${item.color}60` }}>
                       {item.icon}
                     </div>
                   </div>

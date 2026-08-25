@@ -10,55 +10,54 @@ const allCategories = [
   // 0: Cybersecurity & Networking
   {
     skills: [
-      { name: "Kali Linux / Linux", icon: "🐧", color: "#10B981", level: 85 },
-      { name: "Nmap Scanning", icon: "📡", color: "#22D3EE", level: 88 },
-      { name: "Burp Suite Testing", icon: "🐞", color: "#F59E0B", level: 80 },
-      { name: "Metasploit Basics", icon: "⚡", color: "#EF4444", level: 75 },
-      { name: "Sherlock OSINT Tool", icon: "🔍", color: "#8B5CF6", level: 85 },
-      { name: "OSINT Data Gathering", icon: "🌐", color: "#3B82F6", level: 82 },
-      { name: "Web Security (XSS)", icon: "🔐", color: "#EC4899", level: 80 },
-      { name: "Cisco TACACS", icon: "🛡️", color: "#10B981", level: 72 },
-      { name: "Networking (TCP/IP, VLAN)", icon: "🛜", color: "#06B6D4", level: 85 },
-      { name: "Pentesting Basics", icon: "🎯", color: "#F97316", level: 75 },
+      { name: "Kali Linux / Linux", icon: "🐧", color: "#00FF9D", level: 88 },
+      { name: "Nmap Network Scanner", icon: "📡", color: "#00F2FE", level: 90 },
+      { name: "Burp Suite Auditing", icon: "🐞", color: "#FF0844", level: 82 },
+      { name: "Metasploit Framework", icon: "⚡", color: "#F59E0B", level: 78 },
+      { name: "Sherlock OSINT", icon: "🔍", color: "#7F00FF", level: 86 },
+      { name: "Web Security (XSS)", icon: "🔐", color: "#00FF9D", level: 82 },
+      { name: "Cisco TACACS Basics", icon: "🛡️", color: "#00F2FE", level: 75 },
+      { name: "TCP/IP & VLAN Routing", icon: "🛜", color: "#4FACFE", level: 85 },
+      { name: "Pentesting Fundamentals", icon: "🎯", color: "#FF0844", level: 80 },
     ],
   },
   // 1: Development
   {
     skills: [
-      { name: "Python Scripting", icon: "🐍", color: "#3776AB", level: 82 },
-      { name: "Web Development", icon: "🌐", color: "#4F8EF7", level: 85 },
-      { name: "Frontend Concepts", icon: "🎨", color: "#61DAFB", level: 88 },
-      { name: "Backend Concepts", icon: "⚙️", color: "#8B5CF6", level: 80 },
-      { name: "API Integration", icon: "🔌", color: "#10B981", level: 85 },
-      { name: "Git & GitHub", icon: "🐙", color: "#F05032", level: 88 },
+      { name: "Python Scripting", icon: "🐍", color: "#3776AB", level: 85 },
+      { name: "Web Development", icon: "🌐", color: "#00F2FE", level: 88 },
+      { name: "Frontend Architecture", icon: "🎨", color: "#61DAFB", level: 86 },
+      { name: "Backend Concepts", icon: "⚙️", color: "#7F00FF", level: 82 },
+      { name: "REST API Integration", icon: "🔌", color: "#00FF9D", level: 87 },
+      { name: "Git & GitHub Workflow", icon: "🐙", color: "#F05032", level: 90 },
     ],
   },
   // 2: SMM & Digital
   {
     skills: [
-      { name: "Instagram SMM", icon: "📸", color: "#E1306C", level: 88 },
-      { name: "Content Strategy", icon: "💡", color: "#F59E0B", level: 90 },
-      { name: "Profile & Bio Branding", icon: "✨", color: "#EC4899", level: 92 },
-      { name: "Logo & Portfolio Design", icon: "🖼️", color: "#8B5CF6", level: 85 },
-      { name: "Product Ad & Video Scripts", icon: "🎬", color: "#10B981", level: 88 },
+      { name: "Instagram SMM Strategy", icon: "📸", color: "#E1306C", level: 90 },
+      { name: "Content Ideation", icon: "💡", color: "#F59E0B", level: 92 },
+      { name: "Profile & Bio Branding", icon: "✨", color: "#00F2FE", level: 94 },
+      { name: "Logo & Portfolio Design", icon: "🖼️", color: "#7F00FF", level: 88 },
+      { name: "Ad & Video Scriptwriting", icon: "🎬", color: "#00FF9D", level: 90 },
     ],
   },
   // 3: AI & Workflows
   {
     skills: [
-      { name: "AI Marketing Tools", icon: "🤖", color: "#8B5CF6", level: 90 },
-      { name: "AI Video & Script Ideation", icon: "🧠", color: "#22D3EE", level: 88 },
-      { name: "AI Workflow Engineering", icon: "⚡", color: "#10B981", level: 85 },
-      { name: "Prompting & Automation", icon: "🔮", color: "#EC4899", level: 86 },
+      { name: "AI Content Tools", icon: "🤖", color: "#7F00FF", level: 92 },
+      { name: "AI Script & Storyboard", icon: "🧠", color: "#00F2FE", level: 90 },
+      { name: "AI Workflow Engineering", icon: "⚡", color: "#00FF9D", level: 88 },
+      { name: "Prompting & Automation", icon: "🔮", color: "#FF0844", level: 89 },
     ],
   },
 ];
 
 const specialties = [
-  { label: "Pentesting & Recon", color: "#10B981", icon: "🔐" },
-  { label: "Python Automation", color: "#3776AB", icon: "🐍" },
+  { label: "Pentesting & OSINT", color: "#00FF9D", icon: "🔐" },
+  { label: "Python Automation", color: "#00F2FE", icon: "🐍" },
   { label: "Instagram SMM", color: "#E1306C", icon: "📸" },
-  { label: "AI Workflows", color: "#8B5CF6", icon: "🤖" },
+  { label: "AI Workflows", color: "#7F00FF", icon: "🤖" },
 ];
 
 function SkillBar({ skill, inView }: { skill: Skill; inView: boolean }) {
@@ -66,27 +65,24 @@ function SkillBar({ skill, inView }: { skill: Skill; inView: boolean }) {
     <div className="group">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2.5">
-          <span
-            className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold"
-            style={{ background: `${skill.color}20`, color: skill.color }}
-          >
+          <span className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold" style={{ background: `${skill.color}20`, color: skill.color }}>
             {skill.icon}
           </span>
-          <span className="text-sm font-medium text-[#8B96B5] group-hover:text-[#F0F4FF] transition-colors">
+          <span className="text-xs font-semibold text-[#8B96B5] group-hover:text-[#F0F6FF] transition-colors">
             {skill.name}
           </span>
         </div>
-        <span className="text-xs font-mono text-[#4B5678]">{skill.level}%</span>
+        <span className="text-xs font-mono text-[#00F2FE]">{skill.level}%</span>
       </div>
-      <div className="h-1.5 bg-[rgba(79,142,247,0.08)] rounded-full overflow-hidden">
+      <div className="h-1.5 bg-[rgba(10,16,31,0.8)] rounded-full overflow-hidden border border-[rgba(0,242,254,0.1)]">
         <motion.div
           initial={{ width: 0 }}
           animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
           transition={{ duration: 1.2, delay: 0.1, ease: "easeOut" }}
           className="h-full rounded-full"
           style={{
-            background: `linear-gradient(90deg, ${skill.color}80, ${skill.color})`,
-            boxShadow: `0 0 10px ${skill.color}60`,
+            background: `linear-gradient(90deg, ${skill.color}70, ${skill.color})`,
+            boxShadow: `0 0 12px ${skill.color}70`,
           }}
         />
       </div>
@@ -102,38 +98,25 @@ export default function Skills() {
 
   return (
     <section id="skills" className="section-padding relative overflow-hidden" ref={ref}>
-      <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-[rgba(16,185,129,0.05)] rounded-full blur-[100px] pointer-events-none" />
       <div className="max-w-7xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-14"
-        >
-          <span className="tag mb-4 inline-block border-[rgba(16,185,129,0.3)] bg-[rgba(16,185,129,0.08)] text-[#10B981]">
-            {tr.skills.tag}
-          </span>
-          <h2 className="text-4xl sm:text-5xl font-black text-[#F0F4FF] mb-4">
-            {tr.skills.title} <span className="gradient-text">{tr.skills.titleGrad}</span>
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }} className="text-center mb-14">
+          <span className="cyber-tag mb-4 inline-block">{tr.skills.tag}</span>
+          <h2 className="text-4xl sm:text-5xl font-black text-[#F0F6FF] mb-4">
+            {tr.skills.title} <span className="gradient-text-electric">{tr.skills.titleGrad}</span>
           </h2>
           <p className="text-[#8B96B5] max-w-2xl mx-auto text-lg">{tr.skills.sub}</p>
         </motion.div>
 
         {/* Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-3 mb-10"
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.2 }} className="flex flex-wrap justify-center gap-3 mb-10">
           {cats.map((cat, i) => (
             <button
               key={cat}
               onClick={() => setActiveIdx(i)}
-              className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+              className={`px-5 py-2.5 rounded-xl text-xs font-bold font-mono tracking-wide transition-all duration-300 ${
                 activeIdx === i
-                  ? "bg-gradient-to-r from-[#10B981] via-[#4F8EF7] to-[#8B5CF6] text-white shadow-lg"
-                  : "glass text-[#8B96B5] border border-[rgba(79,142,247,0.15)] hover:text-[#F0F4FF]"
+                  ? "bg-gradient-to-r from-[#00F2FE] via-[#4FACFE] to-[#00FF9D] text-[#050811] shadow-[0_0_20px_rgba(0,242,254,0.4)]"
+                  : "bg-[rgba(10,16,31,0.6)] text-[#8B96B5] border border-[rgba(0,242,254,0.15)] hover:text-[#F0F6FF]"
               }`}
             >
               {cat}
@@ -142,16 +125,10 @@ export default function Skills() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Active Category Skill Bars */}
-          <motion.div
-            key={activeIdx}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bento-card p-8"
-          >
-            <h3 className="text-lg font-bold text-[#F0F4FF] mb-6 flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-[#10B981]" />
+          {/* Active Skill Bars */}
+          <motion.div key={activeIdx} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} className="cyber-card p-8">
+            <h3 className="text-base font-bold text-[#F0F6FF] mb-6 flex items-center gap-2 font-mono">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#00FF9D]" />
               {cats[activeIdx]}
             </h3>
             <div className="flex flex-col gap-5">
@@ -161,44 +138,38 @@ export default function Skills() {
             </div>
           </motion.div>
 
-          {/* All Skill Pills & Specialties */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.3 }}
-            className="bento-card p-8"
-          >
-            <h3 className="text-lg font-bold text-[#F0F4FF] mb-6">{tr.skills.allTech}</h3>
-            <div className="flex flex-wrap gap-2.5">
-              {allCategories
-                .flatMap((c) => c.skills)
-                .map((skill, i) => (
-                  <motion.div
-                    key={skill.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={inView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ delay: i * 0.02 }}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    className="skill-pill"
-                  >
-                    <span style={{ color: skill.color }}>{skill.icon}</span>
-                    <span>{skill.name}</span>
-                  </motion.div>
-                ))}
+          {/* All Skill Pills */}
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ delay: 0.3 }} className="cyber-card p-8 flex flex-col justify-between">
+            <div>
+              <h3 className="text-base font-bold text-[#F0F6FF] mb-6 font-mono">{tr.skills.allTech}</h3>
+              <div className="flex flex-wrap gap-2">
+                {allCategories
+                  .flatMap((c) => c.skills)
+                  .map((skill, i) => (
+                    <motion.div
+                      key={skill.name}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={inView ? { opacity: 1, scale: 1 } : {}}
+                      transition={{ delay: i * 0.02 }}
+                      whileHover={{ scale: 1.05 }}
+                      className="px-3 py-1.5 rounded-xl bg-[rgba(10,16,31,0.6)] border border-[rgba(0,242,254,0.15)] hover:border-[#00FF9D] text-xs font-mono text-[#8B96B5] hover:text-[#F0F6FF] transition-all flex items-center gap-1.5 cursor-default"
+                    >
+                      <span style={{ color: skill.color }}>{skill.icon}</span>
+                      <span>{skill.name}</span>
+                    </motion.div>
+                  ))}
+              </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-[rgba(79,142,247,0.1)]">
-              <p className="text-xs text-[#4B5678] font-mono mb-3">// {tr.skills.specialty}</p>
-              <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
+            <div className="mt-8 pt-6 border-t border-[rgba(0,242,254,0.1)]">
+              <p className="text-[11px] text-[#00F2FE] font-mono mb-3">// {tr.skills.specialty}</p>
+              <div className="grid grid-cols-2 gap-3">
                 {specialties.map((item) => (
-                  <div key={item.label} className="flex items-center gap-2.5 text-xs text-[#8B96B5] p-2 rounded-xl bg-[rgba(15,21,37,0.5)] border border-[rgba(79,142,247,0.1)]">
-                    <span
-                      className="w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold"
-                      style={{ background: `${item.color}20`, color: item.color }}
-                    >
+                  <div key={item.label} className="flex items-center gap-2.5 text-xs text-[#8B96B5] p-2 rounded-xl bg-[rgba(5,8,17,0.7)] border border-[rgba(0,242,254,0.12)]">
+                    <span className="w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold" style={{ background: `${item.color}20`, color: item.color }}>
                       {item.icon}
                     </span>
-                    <span className="font-medium text-[#F0F4FF]">{item.label}</span>
+                    <span className="font-semibold text-[#F0F6FF]">{item.label}</span>
                   </div>
                 ))}
               </div>
