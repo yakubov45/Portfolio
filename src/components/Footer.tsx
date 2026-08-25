@@ -27,17 +27,17 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative border-t border-[rgba(79,142,247,0.1)] pt-14 pb-8 overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-[rgba(79,142,247,0.3)] to-transparent" />
+    <footer className="relative border-t border-[rgba(79,142,247,0.1)] pt-14 pb-8 overflow-hidden bg-[#060810]">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-[rgba(16,185,129,0.3)] to-transparent" />
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#4F8EF7] to-[#8B5CF6] flex items-center justify-center text-white font-bold text-sm">MY</div>
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#10B981] via-[#4F8EF7] to-[#8B5CF6] flex items-center justify-center text-white font-black text-base shadow-lg">MY</div>
               <span className="font-bold text-[#F0F4FF] text-lg">Muhammad Yoqubjonov</span>
             </div>
-            <p className="text-[#4B5678] text-sm leading-relaxed max-w-xs">{f.tagline}</p>
+            <p className="text-[#8B96B5] text-sm leading-relaxed max-w-xs">{f.tagline}</p>
           </div>
 
           {/* Navigation */}
@@ -46,7 +46,7 @@ export default function Footer() {
             <ul className="flex flex-col gap-2">
               {navLinks.map(link => (
                 <li key={link.href}>
-                  <button onClick={() => document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" })} className="text-sm text-[#4B5678] hover:text-[#4F8EF7] transition-colors">{link.label}</button>
+                  <button onClick={() => document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" })} className="text-sm text-[#8B96B5] hover:text-[#10B981] transition-colors">{link.label}</button>
                 </li>
               ))}
             </ul>
@@ -56,13 +56,13 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-bold text-[#F0F4FF] mb-4">{f.getInTouch}</h4>
             <div className="flex flex-col gap-2 mb-5">
-              <a href="mailto:muhammadyoqubjonov7@gmail.com" className="text-sm text-[#4B5678] hover:text-[#4F8EF7] transition-colors break-all">muhammadyoqubjonov7@gmail.com</a>
-              <a href="https://t.me/yakubjan_m" target="_blank" rel="noopener noreferrer" className="text-sm text-[#4B5678] hover:text-[#4F8EF7] transition-colors">Telegram: @yakubjan_m</a>
-              <span className="text-sm text-[#4B5678]">Toshkent, O'zbekiston 🇺🇿</span>
+              <a href="mailto:muhammadyoqubjonov7@gmail.com" className="text-sm text-[#8B96B5] hover:text-[#10B981] transition-colors break-all">muhammadyoqubjonov7@gmail.com</a>
+              <a href="https://t.me/yakubjan_m" target="_blank" rel="noopener noreferrer" className="text-sm text-[#8B96B5] hover:text-[#10B981] transition-colors">Telegram: @yakubjan_m</a>
+              <span className="text-sm text-[#8B96B5]">Toshkent, O'zbekiston 🇺🇿</span>
             </div>
             <div className="flex gap-3">
               {socials.map(s => (
-                <motion.a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} whileHover={{ scale: 1.1, y: -2 }} className="w-10 h-10 rounded-xl glass border border-[rgba(79,142,247,0.15)] flex items-center justify-center text-[#4B5678] hover:text-[#4F8EF7] hover:border-[rgba(79,142,247,0.4)] transition-all">
+                <motion.a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} whileHover={{ scale: 1.1, y: -2 }} className="w-10 h-10 rounded-xl glass border border-[rgba(79,142,247,0.15)] flex items-center justify-center text-[#8B96B5] hover:text-[#10B981] hover:border-[rgba(16,185,129,0.4)] transition-all">
                   {s.icon}
                 </motion.a>
               ))}
@@ -73,7 +73,7 @@ export default function Footer() {
         <div className="border-t border-[rgba(79,142,247,0.08)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-[#4B5678]">© {new Date().getFullYear()} Muhammad Yoqubjonov. {f.copyright}</p>
           <p className="text-xs text-[#4B5678] font-mono">
-            {f.builtWith} <span className="text-[#4F8EF7]">Next.js</span> · <span className="text-[#8B5CF6]">TypeScript</span> · <span className="text-[#06B6D4]">Tailwind</span>
+            {f.builtWith} <span className="text-[#10B981]">CyberSecurity</span> · <span className="text-[#3776AB]">Python</span> · <span className="text-[#4F8EF7]">Next.js</span> · <span className="text-[#EC4899]">SMM</span>
           </p>
         </div>
       </div>

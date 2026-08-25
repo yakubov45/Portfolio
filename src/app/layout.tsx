@@ -7,20 +7,31 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: 
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Muhammad Yoqubjonov — Full Stack Developer",
-  description: "Full Stack Developer from Tashkent, Uzbekistan specializing in Next.js, TypeScript, Firebase, and modern web technologies.",
-  keywords: ["Muhammad Yoqubjonov", "Full Stack Developer", "Frontend Developer", "Next.js", "TypeScript", "React", "Tashkent", "Uzbekistan"],
+  title: "Muhammad Yoqubjonov — Cybersecurity, Web Dev, SMM & AI Workflows",
+  description: "Multidisciplinary Specialist from Tashkent specializing in IT/Cybersecurity (Kali Linux, Pentesting, Nmap, Burp Suite), Web & Python Development, Instagram SMM, and AI Workflows.",
+  keywords: [
+    "Muhammad Yoqubjonov",
+    "Cybersecurity",
+    "Pentesting",
+    "Kali Linux",
+    "Python Developer",
+    "Web Developer",
+    "Instagram SMM",
+    "AI Workflows",
+    "Tashkent",
+    "Uzbekistan"
+  ],
   authors: [{ name: "Muhammad Yoqubjonov" }],
   openGraph: {
     type: "website",
-    title: "Muhammad Yoqubjonov — Full Stack Developer",
-    description: "Full Stack Developer from Tashkent specializing in Next.js, TypeScript & Firebase.",
+    title: "Muhammad Yoqubjonov — Cybersecurity, Web Dev, SMM & AI Workflows",
+    description: "Specializing in Cybersecurity (Kali Linux, Burp Suite, Nmap), Python & Web Development, Instagram SMM, and AI Workflows.",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${outfit.variable} ${jetbrains.variable}`}>
+    <html lang="uz" className={`${outfit.variable} ${jetbrains.variable}`}>
       <body className="bg-[#080B14] text-[#F0F4FF] font-sans antialiased">
         <LanguageProvider>{children}</LanguageProvider>
       </body>

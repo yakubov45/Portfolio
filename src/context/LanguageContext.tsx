@@ -2,12 +2,12 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import t, { Lang } from "@/translations";
 
-type CtxType = { lang: Lang; setLang: (l: Lang) => void; tr: typeof t.en };
+type CtxType = { lang: Lang; setLang: (l: Lang) => void; tr: typeof t.uz };
 
-const Ctx = createContext<CtxType>({ lang: "en", setLang: () => {}, tr: t.en });
+const Ctx = createContext<CtxType>({ lang: "uz", setLang: () => {}, tr: t.uz });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
+  const [lang, setLangState] = useState<Lang>("uz");
 
   useEffect(() => {
     const saved = localStorage.getItem("lang") as Lang | null;
