@@ -120,7 +120,7 @@ export default function Services() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
   const s = tr.services;
 
-  // Creative Feature: Interactive Project Scope Configurator
+  // Interactive Project Scope Configurator
   const [selectedServices, setSelectedServices] = useState<string[]>(["security", "web"]);
 
   const toggleService = (id: string) => {
@@ -134,7 +134,8 @@ export default function Services() {
       .map(id => servicesData.find(svc => svc.id === id)?.[lang as "en" | "uz" | "ru"].title)
       .filter(Boolean)
       .join(", ");
-    const text = encodeURIComponent(`Salom Ismoil! Men quyidagi xizmatlar bo'yicha loyiha buyurtma qilmoqchiman: ${names}`);
+    const introMsg = lang === "uz" ? "Salom Ismoil! Men quyidagi xizmatlar bo'yicha loyiha buyurtma qilmoqchiman:" : lang === "ru" ? "Здравствуйте Исмоил! Я хочу заказать проект по следующим услугам:" : "Hello Ismoil! I would like to order a project for the following services:";
+    const text = encodeURIComponent(`${introMsg} ${names}`);
     window.open(`https://t.me/ismoil_turgunboyev?text=${text}`, "_blank");
   };
 
@@ -190,18 +191,18 @@ export default function Services() {
           })}
         </div>
 
-        {/* Creative Feature: Interactive Scope Builder Output Bar */}
+        {/* Interactive Scope Builder Output Bar */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.6 }} className="cyber-card p-6 border-[rgba(0,252,254,0.3)] bg-[#080D1A]/95">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <div className="flex items-center gap-2 mb-2 font-mono text-xs text-[#00F2FE]">
-                <span>⚡ INTERACTIVE PROJECT CONFIGURATOR</span>
-                <span className="text-[#00FF9D]">({selectedServices.length} Selected)</span>
+                <span>⚡ {lang === "uz" ? "INTERAKTIV LOYIHA KALKULYATORI" : lang === "ru" ? "ИНТЕРАКТИВНЫЙ КОНФИГУРАТОР ПРОЕКТА" : "INTERACTIVE PROJECT CONFIGURATOR"}</span>
+                <span className="text-[#00FF9D]">({selectedServices.length} {lang === "uz" ? "Tanlandi" : lang === "ru" ? "Выбрано" : "Selected"})</span>
               </div>
               <p className="text-xs text-[#8B96B5]">
                 {selectedServices.length > 0
-                  ? `Tanlangan xizmatlar: ${selectedServices.map(id => servicesData.find(s => s.id === id)?.[lang as "en" | "uz" | "ru"].title).join(" + ")}`
-                  : "Yuqoridagi kartalarga bosib xizmatlarni tanlang..."}
+                  ? `${lang === "uz" ? "Tanlangan xizmatlar:" : lang === "ru" ? "Выбранные услуги:" : "Selected services:"} ${selectedServices.map(id => servicesData.find(s => s.id === id)?.[lang as "en" | "uz" | "ru"].title).join(" + ")}`
+                  : lang === "uz" ? "Yuqoridagi kartalarga bosib xizmatlarni tanlang..." : lang === "ru" ? "Выберите услуги, нажав на карточки выше..." : "Select services by clicking cards above..."}
               </p>
             </div>
 
@@ -216,7 +217,7 @@ export default function Services() {
                   : "bg-gray-800 text-gray-500 cursor-not-allowed"
               }`}
             >
-              🚀 Telegram Orqali Buyurtma Berish ({selectedServices.length})
+              🚀 {lang === "uz" ? "Telegram Orqali Buyurtma Berish" : lang === "ru" ? "Заказать через Telegram" : "Order via Telegram"} ({selectedServices.length})
             </motion.button>
           </div>
         </motion.div>

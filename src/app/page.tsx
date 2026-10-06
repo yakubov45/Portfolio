@@ -1,46 +1,27 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import Education from "@/components/Education";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
-import Experience from "@/components/Experience";
-import Services from "@/components/Services";
+import AIJourney from "@/components/AIJourney";
+import CurrentFocus from "@/components/CurrentFocus";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export default function Home() {
-  const cursorRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (cursorRef.current) {
-        cursorRef.current.style.left = `${e.clientX}px`;
-        cursorRef.current.style.top = `${e.clientY}px`;
-      }
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   return (
-    <main className="min-h-screen bg-[#080B14] overflow-x-hidden">
-      {/* Cursor glow */}
-      <div
-        ref={cursorRef}
-        className="cursor-glow hidden lg:block"
-        aria-hidden="true"
-      />
-
+    <main className="min-h-screen bg-[#0B0F19] text-[#F1F5F9] overflow-x-hidden selection:bg-sky-500/20 selection:text-sky-400">
       <Navbar />
       <Hero />
       <About />
+      <Education />
       <Skills />
       <Projects />
-      <Experience />
-      <Services />
+      <AIJourney />
+      <CurrentFocus />
       <Contact />
       <Footer />
     </main>

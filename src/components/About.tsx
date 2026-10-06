@@ -1,211 +1,114 @@
 "use client";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { useState, useEffect } from "react";
-import { useLang } from "@/context/LanguageContext";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { duration: 0.7, delay: i * 0.1 } }),
-};
+import { motion } from "framer-motion";
 
 export default function About() {
-  const { tr } = useLang();
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
-  const a = tr.about;
-
-  // Realtime Tashkent Clock State
-  const [timeStr, setTimeStr] = useState<string>("");
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const options: Intl.DateTimeFormatOptions = {
-        timeZone: "Asia/Tashkent",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true,
-      };
-      setTimeStr(new Intl.DateTimeFormat("en-US", options).format(now));
-    };
-    updateTime();
-    const timer = setInterval(updateTime, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const domainPillars = [
-    {
-      title: "IT / Cybersecurity",
-      icon: "💻",
-      color: "#00FF9D",
-      border: "rgba(0, 255, 157, 0.35)",
-      bg: "rgba(0, 255, 157, 0.06)",
-      desc: "Kali Linux, Nmap network scanner, Burp Suite auditing, Metasploit, Sherlock OSINT, Cisco TACACS, TCP/IP & VLAN routing.",
-    },
-    {
-      title: "Development",
-      icon: "🌐",
-      color: "#00F2FE",
-      border: "rgba(0, 242, 254, 0.35)",
-      bg: "rgba(0, 242, 254, 0.06)",
-      desc: "Python task automation, Web Development, Frontend/Backend architecture, REST APIs & Git/GitHub repository workflow.",
-    },
-    {
-      title: "SMM / Digital",
-      icon: "📱",
-      color: "#FF0844",
-      border: "rgba(255, 8, 68, 0.35)",
-      bg: "rgba(255, 8, 68, 0.06)",
-      desc: "Instagram SMM strategy, bio & profile branding, content ideation, logo design, product promo & video scriptwriting.",
-    },
-    {
-      title: "AI Workflows",
-      icon: "🤖",
-      color: "#7F00FF",
-      border: "rgba(127, 0, 255, 0.35)",
-      bg: "rgba(127, 0, 255, 0.06)",
-      desc: "AI marketing integration, generating video & script concepts with AI, prompt engineering, and workflow automation.",
-    },
+  const languages = [
+    { name: "Uzbek", level: "Native", flag: "🇺🇿" },
+    { name: "English", level: "B1 Intermediate", flag: "🇬🇧" },
+    { name: "Russian", level: "Basic understanding", flag: "🇷🇺" },
   ];
 
   return (
-    <section id="about" className="section-padding relative overflow-hidden" ref={ref}>
-      <div className="max-w-7xl mx-auto px-6">
-        <motion.div custom={0} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="text-center mb-14">
-          <span className="cyber-tag mb-4 inline-block">{a.tag}</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-[#F0F6FF] mb-4">
-            {a.title} <span className="gradient-text-electric">{a.titleGrad}</span>
+    <section id="about" className="section-padding relative">
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="text-center mb-12">
+          <span className="text-xs font-mono text-sky-400 uppercase tracking-widest block mb-2">
+            Overview
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-100">
+            About <span className="gradient-heading">Me</span>
           </h2>
-          <p className="text-[#8B96B5] max-w-2xl mx-auto text-lg">{a.sub}</p>
-        </motion.div>
-
-        {/* Live System Time & Operational Status Bar */}
-        <motion.div custom={1} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-4 mb-8 border-[rgba(0,255,157,0.3)] bg-[#080D1A]/90 flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
-          <div className="flex items-center gap-3">
-            <span className="w-3 h-3 rounded-full bg-[#00FF9D] shadow-[0_0_10px_rgba(0,255,157,0.8)] animate-pulse" />
-            <span className="text-[#F0F6FF] font-bold">SYSTEM STATUS: OPERATIONAL</span>
-            <span className="text-[#8B96B5]">|</span>
-            <span className="text-[#00F2FE]">CISCO TACACS & KALI LABS: ONLINE</span>
-          </div>
-
-          <div className="flex items-center gap-4 text-[#8B96B5]">
-            <span>📍 TASHKENT (UTC+5): <strong className="text-[#00FF9D]">{timeStr || "12:00:00 PM"}</strong></span>
-          </div>
-        </motion.div>
-
-        {/* Bio Command Header Card */}
-        <motion.div custom={2} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-8 mb-8 border-[rgba(0,242,254,0.3)]">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-6">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#00F2FE] via-[#4FACFE] to-[#00FF9D] flex items-center justify-center text-[#050811] font-black text-2xl shadow-[0_0_30px_rgba(0,242,254,0.4)] flex-shrink-0">
-                IT
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-[#F0F6FF]">Turg'unboyev Ismoil</h3>
-                <p className="text-[#00FF9D] text-xs font-mono mt-1">{a.role}</p>
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <span className="cyber-tag text-xs">CyberSecurity</span>
-              <span className="cyber-tag text-xs text-[#00F2FE] border-[rgba(0,242,254,0.3)]">Web & Python</span>
-              <span className="cyber-tag text-xs text-[#FF0844] border-[rgba(255,8,68,0.3)]">SMM Digital</span>
-              <span className="cyber-tag text-xs text-[#7F00FF] border-[rgba(127,0,255,0.3)]">AI Workflows</span>
-            </div>
-          </div>
-          <p className="text-[#8B96B5] leading-relaxed text-base mb-4">{a.bio1}</p>
-          <p className="text-[#8B96B5] leading-relaxed text-base">{a.bio2}</p>
-        </motion.div>
-
-        {/* 4 Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-          {domainPillars.map((pillar, idx) => (
-            <motion.div
-              key={pillar.title}
-              custom={idx + 3}
-              variants={fadeUp}
-              initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              className="cyber-card p-6 flex flex-col justify-between"
-              style={{ borderColor: pillar.border }}
-            >
-              <div>
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-4 font-bold"
-                  style={{ background: pillar.bg, color: pillar.color, border: `1px solid ${pillar.border}` }}
-                >
-                  {pillar.icon}
-                </div>
-                <h4 className="text-lg font-bold text-[#F0F6FF] mb-2">{pillar.title}</h4>
-                <p className="text-xs text-[#8B96B5] leading-relaxed">{pillar.desc}</p>
-              </div>
-            </motion.div>
-          ))}
         </div>
 
-        {/* Details Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {/* Languages */}
-          <motion.div custom={7} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-6">
-            <h3 className="text-sm font-bold text-[#F0F6FF] mb-4 flex items-center gap-2">
-              <span className="text-lg">🌐</span> {a.langTitle}
-            </h3>
-            <div className="flex flex-col gap-3.5">
-              {a.langs.map((lang) => (
-                <div key={lang.name} className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-base">{lang.flag}</span>
-                    <span className="text-[#F0F6FF] text-xs font-medium">{lang.name}</span>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main Bio Card */}
+          <div className="lg:col-span-2 academic-card p-8 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-slate-800 border border-slate-700/80 flex items-center justify-center text-sky-400 font-bold text-lg font-mono">
+                  MY
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-100">Muhammad Yoqubjonov</h3>
+                  <p className="text-xs font-mono text-sky-400">
+                    AI Student • PDP University • Uzbekistan 🇺🇿
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+                <p>
+                  I am a second-year Artificial Intelligence student at PDP University. I am interested in Artificial Intelligence, Machine Learning, Deep Learning, Computer Vision, and software development.
+                </p>
+                <p>
+                  I prefer learning through practice: I build projects, make mistakes, analyze them, understand the problem, and improve my solution.
+                </p>
+                <p>
+                  Alongside AI, I develop full-stack applications using modern JavaScript technologies. My long-term goal is to become an Artificial Intelligence Engineer and build useful AI-powered products.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-slate-800/80 flex flex-wrap gap-2">
+              <span className="tech-badge">Practical Learning</span>
+              <span className="tech-badge">Problem Solving</span>
+              <span className="tech-badge font-sans">Full-Stack Dev</span>
+              <span className="tech-badge font-sans">AI & Machine Learning</span>
+            </div>
+          </div>
+
+          {/* Languages & Quick Facts */}
+          <div className="flex flex-col gap-6">
+            {/* Languages Card */}
+            <div className="academic-card p-6">
+              <h3 className="text-sm font-semibold text-slate-200 mb-4 flex items-center gap-2">
+                <svg className="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                </svg>
+                Languages
+              </h3>
+              <div className="space-y-3">
+                {languages.map((lang) => (
+                  <div key={lang.name} className="flex items-center justify-between p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/60">
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-base">{lang.flag}</span>
+                      <span className="text-xs font-medium text-slate-200">{lang.name}</span>
+                    </div>
+                    <span className="text-[11px] font-mono text-slate-400">{lang.level}</span>
                   </div>
-                  <span className="cyber-tag text-[10px] py-0.5">{lang.level}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </motion.div>
 
-          {/* Goals */}
-          <motion.div custom={8} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-6">
-            <h3 className="text-sm font-bold text-[#F0F6FF] mb-4 flex items-center gap-2">
-              <span className="text-lg">🎯</span> {a.goalTitle}
-            </h3>
-            <ul className="flex flex-col gap-2.5">
-              {a.goals.map((g) => (
-                <li key={g} className="flex items-start gap-2 text-xs text-[#8B96B5]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#00FF9D] mt-1 flex-shrink-0" />
-                  {g}
+            {/* Quick Profile Card */}
+            <div className="academic-card p-6 flex-1 flex flex-col justify-between">
+              <h3 className="text-sm font-semibold text-slate-200 mb-4 flex items-center gap-2">
+                <svg className="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                Academic Context
+              </h3>
+              <ul className="space-y-3 text-xs text-slate-300">
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-400 font-bold">•</span>
+                  <span><strong>Institution:</strong> PDP University</span>
                 </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Work Style */}
-          <motion.div custom={9} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-6">
-            <h3 className="text-sm font-bold text-[#F0F6FF] mb-4 flex items-center gap-2">
-              <span className="text-lg">⚙️</span> {a.styleTitle}
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {a.styles.map((s) => (
-                <span key={s} className="text-xs px-3 py-1.5 rounded-lg bg-[rgba(0,242,254,0.06)] border border-[rgba(0,242,254,0.2)] text-[#8B96B5]">
-                  {s}
-                </span>
-              ))}
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-400 font-bold">•</span>
+                  <span><strong>Year:</strong> 2nd Year Bachelor's</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-400 font-bold">•</span>
+                  <span><strong>Career Goal:</strong> AI Engineer</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-400 font-bold">•</span>
+                  <span><strong>Location:</strong> Uzbekistan</span>
+                </li>
+              </ul>
             </div>
-          </motion.div>
-
-          {/* Focus Areas */}
-          <motion.div custom={10} variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} className="cyber-card p-6">
-            <h3 className="text-sm font-bold text-[#F0F6FF] mb-4 flex items-center gap-2">
-              <span className="text-lg">💡</span> {a.interestTitle}
-            </h3>
-            <div className="flex flex-col gap-2">
-              {a.interests.map((item) => (
-                <div key={item.label} className="flex items-center gap-2 text-xs text-[#8B96B5] p-2 rounded-lg bg-[rgba(10,16,31,0.5)] border border-[rgba(0,242,254,0.1)]">
-                  <span>{item.icon}</span>
-                  <span>{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

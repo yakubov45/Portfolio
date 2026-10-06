@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +6,7 @@
 
 :root {
   --font-outfit: "Outfit", sans-serif;
-  --font-grotesk: "Space Grotesk", sans-serif;
+  --font-inter: "Inter", sans-serif;
   --font-jetbrains: "JetBrains Mono", monospace;
 }
 
@@ -19,126 +19,90 @@
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 242, 254, 0.4) rgba(5, 8, 17, 0.9);
+  scrollbar-color: rgba(56, 189, 248, 0.3) rgba(11, 15, 25, 0.9);
 }
 
 html::-webkit-scrollbar {
   width: 6px;
 }
 html::-webkit-scrollbar-track {
-  background: rgba(5, 8, 17, 0.9);
+  background: rgba(11, 15, 25, 0.9);
 }
 html::-webkit-scrollbar-thumb {
-  background: rgba(0, 242, 254, 0.4);
+  background: rgba(56, 189, 248, 0.3);
   border-radius: 3px;
 }
 html::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 255, 157, 0.7);
+  background: rgba(56, 189, 248, 0.6);
 }
 
 body {
-  background: #050811;
-  color: #F0F6FF;
-  font-family: "Space Grotesk", sans-serif;
+  background: #0B0F19;
+  color: #F1F5F9;
+  font-family: "Outfit", "Inter", sans-serif;
   overflow-x: hidden;
 }
 
-/* Glassmorphism & Cyber Deck Card */
-.cyber-card {
-  background: rgba(10, 16, 31, 0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(0, 242, 254, 0.18);
-  border-radius: 1.5rem;
-  transition: all 0.35 cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  overflow: hidden;
-}
-.cyber-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.08), transparent);
-  transition: 0.6s;
-}
-.cyber-card:hover::before {
-  left: 100%;
-}
-.cyber-card:hover {
-  border-color: rgba(0, 255, 157, 0.5);
-  transform: translateY(-8px);
-  box-shadow: 0 25px 70px rgba(0, 242, 254, 0.18), 0 0 30px rgba(0, 255, 157, 0.1);
+/* Subtle tech grid background */
+.tech-grid-bg {
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.07) 0%, transparent 50%),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
 }
 
-/* Cyber Pill Tag */
-.cyber-tag {
+/* Professional Card Styling */
+.academic-card {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.12);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+.academic-card:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -10px rgba(56, 189, 248, 0.12);
+}
+
+/* Clean Tech Badge */
+.tech-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.9rem;
-  border-radius: 0.75rem;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 0.5rem;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   font-family: "JetBrains Mono", monospace;
-  letter-spacing: 0.04em;
-  background: rgba(0, 242, 254, 0.08);
-  border: 1px solid rgba(0, 242, 254, 0.3);
-  color: #00F2FE;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  color: #38BDF8;
 }
 
-/* Neon Gradient Typography */
-.gradient-text-electric {
-  background: linear-gradient(135deg, #00F2FE 0%, #4FACFE 40%, #00FF9D 80%, #FF0844 100%);
-  background-size: 250% 250%;
+/* Subtle Gradient Text */
+.gradient-heading {
+  background: linear-gradient(135deg, #F8FAFC 0%, #38BDF8 60%, #818CF8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: cyber-gradient 5s ease infinite;
 }
 
-.gradient-text-cyber {
-  background: linear-gradient(135deg, #00FF9D 0%, #00F2FE 50%, #7F00FF 100%);
-  background-size: 200% 200%;
+.gradient-accent {
+  background: linear-gradient(135deg, #38BDF8 0%, #818CF8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: cyber-gradient 6s ease infinite;
-}
-
-/* Cyber Matrix Background Grid */
-.cyber-grid {
-  background-image: 
-    radial-gradient(circle at 50% 50%, rgba(0, 242, 254, 0.05) 0%, transparent 60%),
-    linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
-  background-size: 100% 100%, 45px 45px, 45px 45px;
-}
-
-/* Glow Utilities */
-.glow-teal {
-  box-shadow: 0 0 35px rgba(0, 242, 254, 0.35);
-}
-.glow-neon {
-  box-shadow: 0 0 35px rgba(0, 255, 157, 0.35);
 }
 
 .section-padding {
-  padding: 6rem 0;
+  padding: 5rem 0;
 }
 
-@keyframes cyber-gradient {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-@keyframes pulse-slow {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.05); }
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 4s ease-in-out infinite;
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 3.5rem 0;
+  }
 }
