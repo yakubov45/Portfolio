@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -25,7 +25,7 @@ export default function Navbar() {
       const ids = ["hero", "about", "education", "skills", "projects", "ai-journey", "focus", "contact"];
       for (let i = ids.length - 1; i >= 0; i--) {
         const el = document.getElementById(ids[i]);
-        if (el && window.scrollY >= el.offsetTop - 120) {
+        if (el && window.scrollY >= el.offsetTop - 140) {
           setActiveSection(ids[i]);
           break;
         }
@@ -48,40 +48,50 @@ export default function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-[#0B0F19]/90 backdrop-blur-md border-b border-slate-800/80 shadow-lg py-3"
+            ? "bg-black/85 backdrop-blur-xl border-b border-white/10 py-3.5"
             : "bg-transparent py-5"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
-          <button onClick={() => scrollTo("#hero")} className="flex items-center gap-3 group text-left">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center text-slate-950 font-black text-sm shadow-sm font-mono">
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => scrollTo("#hero")}
+            className="flex items-center gap-3 group text-left"
+          >
+            <div className="w-9 h-9 rounded-lg bg-white text-black flex items-center justify-center font-black text-sm shadow-[0_0_20px_rgba(255,255,255,0.2)] font-mono transition-transform duration-300 group-hover:rotate-6">
               MY
             </div>
             <div>
-              <span className="font-bold text-slate-100 text-base tracking-tight block">
+              <span className="font-bold text-white text-base tracking-tight block">
                 Muhammad Yoqubjonov
               </span>
-              <span className="text-[11px] text-sky-400 font-mono block leading-none">
+              <span className="text-[11px] text-zinc-400 font-mono block leading-none">
                 AI Student & Developer
               </span>
             </div>
-          </button>
+          </motion.button>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1 bg-slate-900/60 p-1.5 rounded-xl border border-slate-800/80">
+          {/* Desktop Navigation with Animated Pill */}
+          <nav className="hidden lg:flex items-center gap-1 bg-zinc-950/90 p-1.5 rounded-full border border-white/10">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.slice(1);
               return (
                 <button
                   key={link.href}
                   onClick={() => scrollTo(link.href)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                    isActive
-                      ? "bg-sky-500/10 text-sky-400 font-semibold border border-sky-500/20"
-                      : "text-slate-400 hover:text-slate-200"
+                  className={`relative px-3.5 py-1.5 rounded-full text-xs font-medium transition-colors duration-200 ${
+                    isActive ? "text-black font-semibold" : "text-zinc-400 hover:text-white"
                   }`}
                 >
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeNavPill"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      className="absolute inset-0 bg-white rounded-full -z-10 shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+                    />
+                  )}
                   {link.label}
                 </button>
               );
@@ -90,18 +100,20 @@ export default function Navbar() {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => scrollTo("#contact")}
-              className="px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs transition-colors shadow-md"
+              className="px-4 py-2 rounded-full bg-white hover:bg-zinc-200 text-black font-semibold text-xs transition-all shadow-[0_0_20px_rgba(255,255,255,0.15)]"
             >
               Contact Me
-            </button>
+            </motion.button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden p-2 text-slate-400 hover:text-slate-100 focus:outline-none"
+            className="lg:hidden p-2 text-zinc-400 hover:text-white focus:outline-none"
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -116,27 +128,42 @@ export default function Navbar() {
       </header>
 
       {/* Mobile Drawer */}
-      {menuOpen && (
-        <div className="fixed inset-x-0 top-[65px] z-40 bg-slate-950/95 backdrop-blur-xl border-b border-slate-800 px-6 py-6 lg:hidden">
-          <div className="flex flex-col gap-2">
-            {navLinks.map((link) => (
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-x-0 top-[65px] z-40 bg-black/95 backdrop-blur-2xl border-b border-white/15 px-6 py-6 lg:hidden"
+          >
+            <div className="flex flex-col gap-2">
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.href.slice(1);
+                return (
+                  <button
+                    key={link.href}
+                    onClick={() => scrollTo(link.href)}
+                    className={`text-left px-4 py-2.5 rounded-xl text-sm transition-colors ${
+                      isActive
+                        ? "bg-white text-black font-semibold"
+                        : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+                    }`}
+                  >
+                    {link.label}
+                  </button>
+                );
+              })}
               <button
-                key={link.href}
-                onClick={() => scrollTo(link.href)}
-                className="text-left px-4 py-2.5 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-900 transition-colors"
+                onClick={() => scrollTo("#contact")}
+                className="mt-3 w-full py-2.5 rounded-xl bg-white text-black font-semibold text-sm text-center"
               >
-                {link.label}
+                Contact Me
               </button>
-            ))}
-            <button
-              onClick={() => scrollTo("#contact")}
-              className="mt-3 w-full py-2.5 rounded-lg bg-sky-500 text-slate-950 font-semibold text-sm text-center"
-            >
-              Contact Me
-            </button>
-          </div>
-        </div>
-      )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

@@ -6,6 +6,7 @@ export default function Projects() {
   const projects = [
     {
       id: "techstore",
+      index: "01",
       name: "TechStore",
       category: "Full-Stack E-commerce",
       tech: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS"],
@@ -26,6 +27,7 @@ export default function Projects() {
     },
     {
       id: "onepc",
+      index: "02",
       name: "OnePC",
       category: "E-commerce / Full-Stack",
       tech: ["Next.js", "React", "Firebase", "Zustand", "Tailwind CSS"],
@@ -45,6 +47,7 @@ export default function Projects() {
     },
     {
       id: "green-processing",
+      index: "03",
       name: "Green Processing",
       category: "Quality Inspection & Operational Web App",
       tech: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
@@ -63,6 +66,7 @@ export default function Projects() {
     },
     {
       id: "wood-defect",
+      index: "04",
       name: "AI Wood Defect Detection",
       category: "Artificial Intelligence / Computer Vision",
       tech: ["Python", "TensorFlow", "CNN", "Computer Vision", "Gradio"],
@@ -87,81 +91,109 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="section-padding relative bg-slate-950/40">
+    <section id="projects" className="section-padding relative bg-zinc-950/50 border-y border-white/5">
       <div className="max-w-5xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <span className="text-xs font-mono text-sky-400 uppercase tracking-widest block mb-2">
-            Selected Work
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <span className="text-xs font-mono text-zinc-400 uppercase tracking-[0.2em] block mb-2">
+            04 // Selected Work
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-100">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
             Featured <span className="gradient-heading">Projects</span>
           </h2>
-          <p className="text-slate-400 text-sm max-w-xl mx-auto mt-2">
+          <p className="text-zinc-400 text-sm max-w-xl mx-auto mt-2">
             Practical projects built during my studies in Artificial Intelligence and Full-Stack Web Development.
           </p>
-        </div>
+        </motion.div>
 
         <div className="space-y-8">
-          {projects.map((proj) => (
-            <div key={proj.id} className="academic-card p-6 sm:p-8">
+          {projects.map((proj, idx) => (
+            <motion.div
+              key={proj.id}
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.6, delay: idx * 0.08, ease: "easeOut" }}
+              className="academic-card p-6 sm:p-8 group"
+            >
               {/* Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5 pb-4 border-b border-white/10">
                 <div>
-                  <span className="text-xs font-mono text-sky-400 font-medium block mb-1">
-                    {proj.category}
-                  </span>
-                  <h3 className="text-2xl font-bold text-slate-100">{proj.name}</h3>
+                  <div className="flex items-center gap-2.5 mb-1.5">
+                    <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-white text-black font-bold">
+                      {proj.index}
+                    </span>
+                    <span className="text-xs font-mono text-zinc-400">
+                      {proj.category}
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white group-hover:tracking-wide transition-all">
+                    {proj.name}
+                  </h3>
                 </div>
+
                 <div className="flex flex-wrap items-center gap-2.5">
                   {proj.liveUrl && (
-                    <a
+                    <motion.a
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.96 }}
                       href={proj.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3.5 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm"
+                      className="px-4 py-2 rounded-full bg-white hover:bg-zinc-200 text-black text-xs font-bold flex items-center gap-1.5 transition-all shadow-[0_0_20px_rgba(255,255,255,0.15)]"
                     >
                       <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
                       {proj.liveLabel || "Live Demo"}
-                    </a>
+                    </motion.a>
                   )}
 
                   {proj.githubUrl && (
-                    <a
+                    <motion.a
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.96 }}
                       href={proj.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 text-xs font-mono flex items-center gap-2 transition-colors"
+                      className="px-4 py-2 rounded-full bg-zinc-950 border border-white/20 text-zinc-200 hover:text-black hover:bg-white hover:border-white text-xs font-mono flex items-center gap-2 transition-colors"
                     >
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.66-.22.66-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85.004 1.7.115 2.5.337 1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.16.58.67.48A10 10 0 0022 12c0-5.52-4.48-10-10-10z" />
                       </svg>
                       GitHub Repo
-                    </a>
+                    </motion.a>
                   )}
                 </div>
               </div>
 
               {/* Description */}
-              <p className="text-slate-300 text-sm leading-relaxed mb-5">
+              <p className="text-zinc-300 text-sm leading-relaxed mb-5">
                 {proj.description}
               </p>
 
               {/* Special AI Visual Flow Diagram if AI Wood Defect Detection */}
               {proj.flowDiagram && (
-                <div className="mb-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800">
-                  <span className="text-[11px] font-mono text-sky-400 block mb-3 uppercase tracking-wider">
+                <div className="mb-6 p-4 rounded-xl bg-zinc-950/90 border border-white/15">
+                  <span className="text-[11px] font-mono text-zinc-400 block mb-3 uppercase tracking-wider">
                     Pipeline Flow Architecture
                   </span>
                   <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-                    {proj.flowDiagram.map((step, idx) => (
+                    {proj.flowDiagram.map((step, stepIdx) => (
                       <div key={step} className="flex items-center gap-2">
-                        <span className="px-3 py-1.5 rounded bg-slate-800 text-slate-200 border border-slate-700/80 font-semibold">
+                        <motion.span
+                          whileHover={{ scale: 1.05 }}
+                          className="px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 font-semibold"
+                        >
                           {step}
-                        </span>
-                        {idx < proj.flowDiagram!.length - 1 && (
-                          <span className="text-sky-400 font-bold">→</span>
+                        </motion.span>
+                        {stepIdx < proj.flowDiagram!.length - 1 && (
+                          <span className="text-zinc-400 font-bold">→</span>
                         )}
                       </div>
                     ))}
@@ -171,16 +203,19 @@ export default function Projects() {
 
               {/* Dataset & Classes Info if applicable */}
               {proj.datasetInfo && (
-                <div className="mb-5 p-4 rounded-xl bg-slate-900/50 border border-slate-800/80 text-xs space-y-2">
+                <div className="mb-5 p-4 rounded-xl bg-zinc-950/60 border border-white/10 text-xs space-y-2.5">
                   <div>
-                    <span className="text-slate-400 font-mono">Dataset Preparation: </span>
-                    <span className="text-slate-300">{proj.datasetInfo}</span>
+                    <span className="text-zinc-400 font-mono">Dataset Preparation: </span>
+                    <span className="text-zinc-200">{proj.datasetInfo}</span>
                   </div>
                   {proj.classes && (
                     <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                      <span className="text-slate-400 font-mono mr-1">Target Classes (6): </span>
+                      <span className="text-zinc-400 font-mono mr-1">Target Classes (6): </span>
                       {proj.classes.map((cls) => (
-                        <span key={cls} className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[11px]">
+                        <span
+                          key={cls}
+                          className="px-2.5 py-0.5 rounded bg-white/10 text-white border border-white/15 font-mono text-[11px]"
+                        >
                           {cls}
                         </span>
                       ))}
@@ -192,13 +227,13 @@ export default function Projects() {
               {/* Features List */}
               {proj.features && (
                 <div className="mb-5">
-                  <span className="text-xs font-mono text-slate-400 block mb-2 font-semibold">
-                    Key Implementation Features:
+                  <span className="text-xs font-mono text-zinc-400 block mb-2.5 font-semibold uppercase tracking-wider">
+                    Key Implementation Features
                   </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-zinc-300">
                     {proj.features.map((feat) => (
-                      <div key={feat} className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-sky-400 flex-shrink-0" />
+                      <div key={feat} className="flex items-center gap-2.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white flex-shrink-0" />
                         <span>{feat}</span>
                       </div>
                     ))}
@@ -209,13 +244,13 @@ export default function Projects() {
               {/* Technical details list if available */}
               {proj.technicalDetails && (
                 <div className="mb-5">
-                  <span className="text-xs font-mono text-slate-400 block mb-2 font-semibold">
-                    Technical Specifications:
+                  <span className="text-xs font-mono text-zinc-400 block mb-2.5 font-semibold uppercase tracking-wider">
+                    Technical Specifications
                   </span>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-slate-300">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-zinc-300">
                     {proj.technicalDetails.map((detail) => (
-                      <div key={detail} className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0" />
+                      <div key={detail} className="flex items-center gap-2.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white flex-shrink-0" />
                         <span>{detail}</span>
                       </div>
                     ))}
@@ -224,14 +259,14 @@ export default function Projects() {
               )}
 
               {/* Technology Badges */}
-              <div className="pt-4 border-t border-slate-800/80 flex flex-wrap gap-2">
+              <div className="pt-4 border-t border-white/10 flex flex-wrap gap-2">
                 {proj.tech.map((t) => (
                   <span key={t} className="tech-badge">
                     {t}
                   </span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

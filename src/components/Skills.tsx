@@ -6,12 +6,12 @@ export default function Skills() {
   const skillCategories = [
     {
       category: "Programming",
-      icon: "🐍",
+      code: "01",
       skills: ["Python", "JavaScript"],
     },
     {
       category: "Artificial Intelligence",
-      icon: "🤖",
+      code: "02",
       skills: [
         "Machine Learning",
         "Deep Learning",
@@ -24,64 +24,105 @@ export default function Skills() {
     },
     {
       category: "Frontend",
-      icon: "🎨",
+      code: "03",
       skills: ["React.js", "Next.js", "Tailwind CSS", "Zustand"],
     },
     {
       category: "Backend",
-      icon: "⚙️",
+      code: "04",
       skills: ["Node.js", "Express.js", "FastAPI"],
     },
     {
       category: "Database / Services",
-      icon: "🗄️",
+      code: "05",
       skills: ["MongoDB", "Firebase"],
     },
     {
       category: "Tools",
-      icon: "🛠️",
+      code: "06",
       skills: ["Git", "GitHub"],
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 25 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
   return (
     <section id="skills" className="section-padding relative">
       <div className="max-w-5xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <span className="text-xs font-mono text-sky-400 uppercase tracking-widest block mb-2">
-            Technical Stack
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <span className="text-xs font-mono text-zinc-400 uppercase tracking-[0.2em] block mb-2">
+            03 // Technical Stack
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-100">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
             Skills & <span className="gradient-heading">Technologies</span>
           </h2>
-          <p className="text-slate-400 text-sm max-w-xl mx-auto mt-2">
+          <p className="text-zinc-400 text-sm max-w-xl mx-auto mt-2">
             Technologies and frameworks I work with across AI development and full-stack web projects.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {skillCategories.map((cat) => (
-            <div key={cat.category} className="academic-card p-6 flex flex-col justify-between">
+            <motion.div
+              key={cat.category}
+              variants={cardVariants}
+              className="academic-card p-6 flex flex-col justify-between group"
+            >
               <div>
-                <div className="flex items-center gap-2.5 mb-4">
-                  <span className="text-lg">{cat.icon}</span>
-                  <h3 className="text-base font-bold text-slate-100">{cat.category}</h3>
+                <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/10">
+                  <h3 className="text-base font-bold text-white group-hover:tracking-wide transition-all">
+                    {cat.category}
+                  </h3>
+                  <span className="text-xs font-mono text-zinc-500 group-hover:text-white transition-colors">
+                    /{cat.code}
+                  </span>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
                   {cat.skills.map((skill) => (
-                    <span
+                    <motion.span
                       key={skill}
-                      className="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 text-xs font-mono text-slate-300 hover:border-sky-500/40 hover:text-sky-300 transition-colors"
+                      whileHover={{ scale: 1.06, y: -2 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 18 }}
+                      className="px-3 py-1.5 rounded-lg bg-zinc-950 border border-white/15 text-xs font-mono text-zinc-200 hover:bg-white hover:text-black hover:border-white transition-colors cursor-default"
                     >
                       {skill}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
